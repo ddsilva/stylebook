@@ -1,7 +1,7 @@
 import { configure, addDecorator, addParameters } from '@storybook/react';
 import { withStyle } from '../src/decorators';
 
-const req = require.context('../stories', true, /\.stories\.js$/);
+const req = require.context('../stories', true, /\.stories\.tsx$/);
 function loadStories() {
   req.keys().forEach(filename => req(filename));
 }

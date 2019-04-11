@@ -1,5 +1,5 @@
 import addons from '@storybook/addons';
-import { DOMController } from './classes/index.ts';
+import { DOMController } from './classes/index';
 
 addons.register('MYADDON', api => {
   const DocumentManager = new DOMController();

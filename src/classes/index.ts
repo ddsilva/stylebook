@@ -1,3 +1,3 @@
-import DOMController from './DOMController.ts';
+import DOMController from './DOMController';
 
 export { DOMController };
