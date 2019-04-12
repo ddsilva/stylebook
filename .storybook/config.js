@@ -1,5 +1,8 @@
 import { configure, addDecorator, addParameters } from '@storybook/react';
-import { withStyle } from '../src/decorators';
+import { withManager } from '../src/decorators';
+import styled from 'styled-components';
+
+const NewManager =
 
 const req = require.context('../stories', true, /\.stories\.tsx$/);
 function loadStories() {
@@ -7,6 +10,6 @@ function loadStories() {
 }
 
 configure(loadStories, module);
-addDecorator(withStyle());
+addDecorator(withManager());
 
 
