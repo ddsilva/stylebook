@@ -8,7 +8,7 @@ function loadStories() {
 }
 
 const options = {
-  manager: <div>tei</div>
+  manager: <div>fdsdffsddsf</div>
 }
 
 configure(loadStories, module);

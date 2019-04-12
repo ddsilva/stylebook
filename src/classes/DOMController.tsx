@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
+
 class DOMController {
   private observer!: MutationObserver;
   private rootElement: Element | null;
@@ -34,15 +35,14 @@ class DOMController {
     }
   };
 
-  createStoryList = (stories: any) => {
-    // const items = stories.map((item: any, index: any) => {
-    //   return <li>index</li>
-    // });
-    return <li>index</li>;
-  };
-
-  createNewManager = (managerData: any) => {
-    const { stories }: { stories: any } = managerData;
+  createNewManager = ({
+    stories,
+    manager: Component
+  }: {
+    stories: any;
+    manager: any;
+  }) => {
+    // const { stories }: { stories: any } = managerData;
     // this.createStoryList(stories);
     // const Component = managerData.manager;
     if (this.rootElement) {
@@ -54,11 +54,9 @@ class DOMController {
           oldLook.firstChild.remove();
         }
         oldLook.setAttribute('id', 'teste');
-        console.log(managerData.manager);
-        console.log(<div>lau</div>);
-        const comp = managerData.manager;
-        const test = ReactDOM.render(comp, document.getElementById('teste'));
-        // oldLook.appendChild(this.createStoryList(stories));
+
+        const newManager = React.createElement(Component.type, Component.props);
+        ReactDOM.render(newManager, document.getElementById('teste'));
       }
     }
   };
