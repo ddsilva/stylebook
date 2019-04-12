@@ -7,6 +7,8 @@ function loadStories() {
   req.keys().forEach(filename => req(filename));
 }
 
+const Component = () => (<React.Fragment><div>teste</div></React.Fragment>);
+
 const options = {
   component: <div>fdsdffsddsf</div>
 }

@@ -1,4 +1,4 @@
-const ADDON_NAME = 'styleBook';
+const ADDON_NAME = 'StyleBook';
 const ROOT_NODE_SELECTOR = '#root';
 const CONTAINER_SELECTOR = 'div:nth-child(2)';
 const MANAGER_SELECTOR = 'div:nth-child(2) div:nth-child(5)';

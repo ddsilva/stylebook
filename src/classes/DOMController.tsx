@@ -37,21 +37,20 @@ class DOMController {
 
       this.stories = stories;
 
+
+
       if (this.root) {
         const defaultManager = this.root.querySelector(MANAGER_SELECTOR);
-        if (defaultManager) {
-          while (defaultManager.firstChild) {
-            defaultManager.firstChild.remove();
-          }
-          defaultManager.setAttribute('id', NEW_MANAGER_ID);
 
-          const newManager = React.createElement(
-            component.type,
-            component.props
-          );
-          ReactDOM.render(newManager, document.getElementById(NEW_MANAGER_ID));
-          this.setContainerVisible(true);
+        if (defaultManager) {
+          while (defaultManager.firstChild) defaultManager.firstChild.remove();
+
+          defaultManager.setAttribute('id', NEW_MANAGER_ID);
         }
+
+        const newManager = React.createElement(component.type, component.props);
+        ReactDOM.render(newManager, document.getElementById(NEW_MANAGER_ID));
+        this.setContainerVisible(true);
       }
     }
   };
