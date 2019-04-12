@@ -18,7 +18,9 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "commit": "git-cz",
-    "storybook": "start-storybook -p 6006",
+    "run-compiler": "npx tsc --watch",
+    "run-storybook": "start-storybook -p 6006",
+    "storybook": "concurrently \"yarn:run-*\"",
     "build-storybook": "build-storybook"
   },
   "eslintConfig": {
@@ -40,6 +42,7 @@
     "babel-loader": "^8.0.5",
     "babel-preset-react-app": "^7.0.2",
     "commitizen": "^3.0.7",
+    "concurrently": "^4.1.0",
     "cz-conventional-changelog": "^2.1.0",
     "react-docgen-typescript-loader": "^3.1.0"
   },

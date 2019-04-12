@@ -5,9 +5,9 @@ class DOMController {
   };
   private rootElement: Element | null;
 
-  constructor() {
-    console.log('aasdasdasddsa');
-    this.rootElement = document.querySelector('#root');
+  constructor(rootSelector: string) {
+    this.rootElement = document.querySelector(rootSelector);
+
     if (this.rootElement) {
       this.observer = new MutationObserver(this.handleRootNode);
       this.observer.observe(this.rootElement, this.observerOptions);

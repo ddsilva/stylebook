@@ -1,9 +1,10 @@
 import addons, { makeDecorator } from '@storybook/addons';
 
-const withStyle = makeDecorator({
-  name: 'withStyle',
+const withManager = makeDecorator({
+  name: 'withManager',
 
-  wrapper: (getStory, context, { options: component }) => {
+  wrapper: (getStory: Function, context, { options: component }) => {
+    console.log(context);
     const channel = addons.getChannel();
     channel.emit('styled-story-preview', null);
 
@@ -11,5 +12,5 @@ const withStyle = makeDecorator({
   }
 });
 
-export { withStyle };
+export { withManager };
 
