@@ -9,22 +9,14 @@
     "@types/react-dom": "^16.8.3",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
-    "react-scripts": "2.1.8",
     "typescript": "^3.4.2"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
     "commit": "git-cz",
     "run-compiler": "npx tsc --watch",
     "run-storybook": "start-storybook -p 6006",
     "storybook": "concurrently \"yarn:run-*\"",
     "build-storybook": "build-storybook"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
   },
   "browserslist": [
     ">0.2%",
