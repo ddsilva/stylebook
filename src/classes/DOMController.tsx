@@ -1,5 +1,5 @@
-import React from 'react';
-
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 class DOMController {
   private observer!: MutationObserver;
   private rootElement: Element | null;
@@ -35,19 +35,32 @@ class DOMController {
   };
 
   createStoryList = (stories: any) => {
-    console.log(stories);
+    // const items = stories.map((item: any, index: any) => {
+    //   return <li>index</li>
+    // });
+    return <li>index</li>;
   };
 
   createNewManager = (managerData: any) => {
-    const { stories, manager }: { stories: any; manager: any } = managerData;
-    this.createNewManager(stories)
+    const { stories }: { stories: any } = managerData;
+    // this.createStoryList(stories);
     // const Component = managerData.manager;
-    // if (this.rootElement) {
-    //   const oldLook = this.rootElement.querySelector('div:nth-child(2)');
-    //   if (oldLook) {
-    //     // oldLook.appendChild(React.Re);
-    //   }
-    // }
+    if (this.rootElement) {
+      const oldLook = this.rootElement.querySelector(
+        'div:nth-child(2) div:nth-child(5)'
+      );
+      if (oldLook) {
+        while (oldLook.firstChild) {
+          oldLook.firstChild.remove();
+        }
+        oldLook.setAttribute('id', 'teste');
+        console.log(managerData.manager);
+        console.log(<div>lau</div>);
+        const comp = managerData.manager;
+        const test = ReactDOM.render(comp, document.getElementById('teste'));
+        // oldLook.appendChild(this.createStoryList(stories));
+      }
+    }
   };
 }
 
