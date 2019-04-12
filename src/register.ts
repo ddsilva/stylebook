@@ -1,9 +1,10 @@
 import addons from '@storybook/addons';
 import { DOMController } from './classes';
+import { ADDON_NAME } from './constants';
 
-addons.register('MYADDON', api => {
-  new DOMController('#root');
-
+addons.register(ADDON_NAME, api => {
   const channel = addons.getChannel();
-  channel.on('styled-story-preview', stories => null); // get stories list here
+
+  const DocumentManager = new DOMController('#root');
+  channel.on('styled-story-preview', (stories) => DocumentManager.managerInjection(stories));
 });

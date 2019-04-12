@@ -1,15 +1,15 @@
-import { configure, addDecorator, addParameters } from '@storybook/react';
+import React from 'react';
+import { configure, addDecorator } from '@storybook/react';
 import { withManager } from '../src/decorators';
-import styled from 'styled-components';
-
-const NewManager =
 
 const req = require.context('../stories', true, /\.stories\.tsx$/);
 function loadStories() {
   req.keys().forEach(filename => req(filename));
 }
 
+const options = {
+  manager: <div>tei</div>
+}
+
 configure(loadStories, module);
-addDecorator(withManager());
-
-
+addDecorator(withManager(options));
