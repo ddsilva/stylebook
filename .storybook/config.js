@@ -8,7 +8,7 @@ function loadStories() {
 }
 
 const options = {
-  manager: <div>fdsdffsddsf</div>
+  component: <div>fdsdffsddsf</div>
 }
 
 configure(loadStories, module);
