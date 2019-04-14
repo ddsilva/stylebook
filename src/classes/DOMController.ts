@@ -1,56 +1,58 @@
-import * as ReactDOM from 'react-dom';
-import { ManagerData } from '../interfaces';
-import { ManagerComponent } from '../types';
+import * as ReactDOM from 'react-dom'
+import { ManagerData } from '../interfaces'
+import { ManagerComponent } from '../types'
 import {
   ROOT_NODE_SELECTOR,
   CONTAINER_SELECTOR,
   MANAGER_SELECTOR,
   NEW_MANAGER_ID
-} from '../constants';
+} from '../constants'
 
 class DOMController {
-  private observer: MutationObserver;
-  private root: Element | null;
-  private stories: object[];
+  private observer: MutationObserver
 
-  constructor() {
-    this.root = document.querySelector(ROOT_NODE_SELECTOR);
-    this.observer = new MutationObserver(() => this.setContainerVisible(false));
-    this.root && this.observer.observe(this.root, { childList: true });
+  private root: Element | null
+
+  private stories: object[]
+
+  public constructor() {
+    this.root = document.querySelector(ROOT_NODE_SELECTOR)
+    this.observer = new MutationObserver(() => this.setContainerVisible(false))
+    this.root && this.observer.observe(this.root, { childList: true })
   }
 
-  setContainerVisible = (visibility: boolean) => {
-    const container = this.root && this.root.querySelector(CONTAINER_SELECTOR);
+  private setContainerVisible = (visibility: boolean) => {
+    const container = this.root && this.root.querySelector(CONTAINER_SELECTOR)
     container &&
       container.setAttribute(
         'style',
         `visibility: ${visibility ? 'visible' : 'hidden'};`
-      );
-  };
+      )
+  }
 
-  hydrate = (content: ManagerData) => {
+  public hydrate = (content: ManagerData) => {
     if (!this.stories) {
       const {
         stories,
         component
-      }: { stories: object[]; component: ManagerComponent } = content;
+      }: { stories: object[]; component: ManagerComponent } = content
 
-      this.stories = stories;
+      this.stories = stories
 
       if (this.root) {
-        const defaultManager = this.root.querySelector(MANAGER_SELECTOR);
+        const defaultManager = this.root.querySelector(MANAGER_SELECTOR)
 
         if (defaultManager) {
-          while (defaultManager.firstChild) defaultManager.firstChild.remove();
+          while (defaultManager.firstChild) defaultManager.firstChild.remove()
 
-          defaultManager.setAttribute('id', NEW_MANAGER_ID);
+          defaultManager.setAttribute('id', NEW_MANAGER_ID)
         }
 
-        ReactDOM.render(component, document.getElementById(NEW_MANAGER_ID));
-        this.setContainerVisible(true);
+        ReactDOM.render(component, document.getElementById(NEW_MANAGER_ID))
+        this.setContainerVisible(true)
       }
     }
-  };
+  }
 }
 
-export default DOMController;
+export default DOMController

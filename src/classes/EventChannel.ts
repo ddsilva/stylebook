@@ -1,26 +1,27 @@
-
 class EventChannel {
-  private channel: Window;
+  private channel: Window
 
-  constructor() {
-    this.channel = window.parent;
+  public constructor() {
+    this.channel = window.parent
   }
 
-  on = (event: string, callback: Function) => {
-    this.channel.addEventListener(event, (event: CustomEvent) => {
-      const { detail: data }: { detail: object } = event;
-      callback(data);
-    }, false);
+  public on = (event: string, callback: Function) => {
+    this.channel.addEventListener(
+      event,
+      (customEvent: CustomEvent) => {
+        const { detail: data }: { detail: object } = customEvent
+        callback(data)
+      },
+      false
+    )
   }
 
-  off = () => {
+  public off = () => null
 
-  }
-
-  emmit = (event: string, data: object) => {
-    const customEvent = new CustomEvent(event, { 'detail': data });
-    this.channel.dispatchEvent(customEvent);
+  public emmit = (event: string, data: object) => {
+    const customEvent = new CustomEvent(event, { detail: data })
+    this.channel.dispatchEvent(customEvent)
   }
 }
 
-export default EventChannel;
+export default EventChannel

@@ -1,4 +1,4 @@
-import DOMController from './DOMController';
-import EventChannel from './EventChannel';
+import DOMController from './DOMController'
+import EventChannel from './EventChannel'
 
-export { DOMController, EventChannel };
+export { DOMController, EventChannel }

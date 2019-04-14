@@ -1,3 +1,3 @@
-import ManagerData from './ManagerData';
+import ManagerData from './ManagerData'
 
-export { ManagerData };
+export { ManagerData }

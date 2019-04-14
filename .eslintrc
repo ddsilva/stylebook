@@ -15,24 +15,37 @@
     "plugin:import/typescript",
     "plugin:prettier/recommended",
     "prettier/@typescript-eslint"
-
   ],
   "rules": {
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        "devDependencies": [".storybook/**", "stories/**", "src/**"]
+      }
+    ],
+    "import/named": "off",
     "import/export": "off",
     "import/prefer-default-export": "off",
-    "no-unused-expressions": ["warn", {
-      "allowShortCircuit": true,
-      "allowTernary": true
-    }],
+    "no-unused-expressions": [
+      "warn",
+      {
+        "allowShortCircuit": true,
+        "allowTernary": true
+      }
+    ],
     "@typescript-eslint/prefer-interface": "off",
     "@typescript-eslint/explicit-function-return-type": "off",
-    "react/jsx-filename-extension": ["warn", {
-      "extensions": [".jsx", ".tsx"]
-    }],
+    "react/jsx-filename-extension": [
+      "warn",
+      {
+        "extensions": [".jsx", ".tsx"]
+      }
+    ],
     "react/prop-types": "off",
     "react-hooks/rules-of-hooks": "error",
     "prettier/prettier": [
-      "error", {
+      "error",
+      {
         "singleQuote": true,
         "semi": false
       }

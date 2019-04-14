@@ -1,8 +1,8 @@
-import { makeDecorator } from '@storybook/addons';
-import { getStorybook } from '@storybook/react';
-import { ManagerData } from '../interfaces';
-import { ManagerComponent } from '../types';
-import { EventChannel } from '../classes';
+import { makeDecorator } from '@storybook/addons'
+import { getStorybook } from '@storybook/react'
+import { ManagerData } from '../interfaces'
+import { ManagerComponent } from '../types'
+import { EventChannel } from '../classes'
 
 const withManager = makeDecorator({
   name: 'withManager',
@@ -14,14 +14,14 @@ const withManager = makeDecorator({
   ) => {
     const content: ManagerData = {
       stories: getStorybook(),
-      component: component
-    };
+      component
+    }
 
-    const channel = new EventChannel();
-    channel.emmit('stylebook-hydrate', content);
+    const channel = new EventChannel()
+    channel.emmit('stylebook-hydrate', content)
 
-    return getStory(context);
+    return getStory(context)
   }
-});
+})
 
-export { withManager };
+export { withManager }

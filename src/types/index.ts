@@ -1,3 +1,1 @@
-type ManagerComponent = any;
-
-export { ManagerComponent };
+export type ManagerComponent = JSX.Element | string
