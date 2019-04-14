@@ -1,3 +1,3 @@
-type StyleOptions<T> = { value: T };
+type ManagerComponent = any;
 
-export { StyleOptions };
+export { ManagerComponent };

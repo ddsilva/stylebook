@@ -1,6 +1,6 @@
-import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { ManagerData } from '../interfaces';
+import { ManagerComponent } from '../types';
 import {
   ROOT_NODE_SELECTOR,
   CONTAINER_SELECTOR,
@@ -33,11 +33,9 @@ class DOMController {
       const {
         stories,
         component
-      }: { stories: object[]; component: JSX.Element } = content;
+      }: { stories: object[]; component: ManagerComponent } = content;
 
       this.stories = stories;
-
-
 
       if (this.root) {
         const defaultManager = this.root.querySelector(MANAGER_SELECTOR);
@@ -48,8 +46,7 @@ class DOMController {
           defaultManager.setAttribute('id', NEW_MANAGER_ID);
         }
 
-        const newManager = React.createElement(component.type, component.props);
-        ReactDOM.render(newManager, document.getElementById(NEW_MANAGER_ID));
+        ReactDOM.render(component, document.getElementById(NEW_MANAGER_ID));
         this.setContainerVisible(true);
       }
     }
