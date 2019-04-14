@@ -7,5 +7,5 @@ addons.register(ADDON_NAME, api => {
   const channel = new EventChannel();
   const documentManager = new DOMController();
 
-  channel.on('stylebook-hydrate', (content: any) => documentManager.hydrate(content));
+  channel.on('stylebook-hydrate', (content: ManagerData) => documentManager.hydrate(content));
 });
