@@ -48,7 +48,10 @@ class DOMController {
           defaultManager.setAttribute('id', NEW_MANAGER_ID)
         }
 
-        ReactDOM.render(component, document.getElementById(NEW_MANAGER_ID))
+        ReactDOM.render(
+          component as React.ReactElement<object>,
+          document.getElementById(NEW_MANAGER_ID)
+        )
         this.setContainerVisible(true)
       }
     }
