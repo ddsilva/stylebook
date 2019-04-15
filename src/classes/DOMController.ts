@@ -41,6 +41,9 @@ class DOMController {
 
       if (this.root) {
         const defaultManager = this.root.querySelector(MANAGER_SELECTOR)
+        const {
+          props: { children: newManager }
+        } = component
 
         if (defaultManager) {
           while (defaultManager.firstChild) defaultManager.firstChild.remove()
@@ -49,7 +52,7 @@ class DOMController {
         }
 
         ReactDOM.render(
-          component as React.ReactElement<object>,
+          newManager(stories) as React.ReactElement<object>,
           document.getElementById(NEW_MANAGER_ID)
         )
         this.setContainerVisible(true)
