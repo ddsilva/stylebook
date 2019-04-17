@@ -4,7 +4,7 @@
 
 ![Stylebook](./docs/static/readme-presentation-v01.png)
 
-## Intro
+## Motivations
 
 Stylebook is a [Storybook](https://storybook.js.org/) addon.
 Stylebook adds endless possibilities and all kind of UI customizations, making [Storybook](https://storybook.js.org/) more dinamyc as style-guides use-cases, for instance.
@@ -16,7 +16,7 @@ Manager App is the client side UI for Storybook. Preview Area is the place where
 
 ![Stylebook](./docs/static/sb-basics.png)
 
-With that being said, Storybook doesn't have many options for customizing the Manager app area, such as putting your company logo or styling the search input, as well the list-items for stories itself.
+With that being said, Storybook doesn't have many options for customizing the Manager app (other than manager_head.html), such as putting a custom company logo or styling the search input as wish, as well the list-items for stories itself.
 <br /><br />
 Stylebooks allows you using a [React component](https://reactjs.org/docs/react-component.html) as the manager app and customizing it as you wish.<br />
 Since this is a early-stage addon project, Stylebook only supoorts [React](https://reactjs.org/) for now, We hope to add support for other frameworks soon.
