@@ -31,7 +31,7 @@ Since this is a early-stage addon project, Stylebook only supoorts [React](https
 
 ## Installation
 
-First of all, you need to install knobs into your project as a dev dependency.
+First of all, you need to install Stylebook into your project as a dev dependency.
 
 ```sh
 yarn add -D @stylebook/core
@@ -51,15 +51,6 @@ You' ll need to import the StoriesProvider component too, this is the wrapper co
 ```js
 import { withManager } from "@stylebook/core/decorators"
 import { StoriesProvider } from "@stylebook/core/components"
-```
-
-```js
-let generateProject = project => {
-  let code = []
-  for (let js = 0; js < project.length; js++) {
-    code.push(js)
-  }
-}
 ```
 
 ## Usage
