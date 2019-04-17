@@ -67,14 +67,14 @@ let generateProject = project => {
 You are almost ready to go: with the addon imports now you can create your own manager component wrapped by `StoriesProvider` that will provide the stories for you! The sky is the limit!
 
 ```js
-//load stories
+// load stories
 const req = require.context("../stories", true, /\.stories\.jsx$/)
 function loadStories() {
   req.keys().forEach(filename => req(filename))
 }
 
-//create a new custom manager
-//you can use your own react components or icons - whatever you like
+// create a new custom manager
+// you can use your own react component or icons - whatever you like!
 const newManager = (
   <StoriesProvider>
     {stories => (
@@ -102,9 +102,9 @@ const options = {
   component: newManager
 }
 
-//pass the new manager for stylebook addon
+// pass the new manager for stylebook addon
 addDecorator(withManager(options))
-//finish storybook configuration
+// finish storybook configuration
 configure(loadStories, module)
 ```
 
