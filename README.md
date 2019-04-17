@@ -26,7 +26,7 @@ Since this is a early-stage addon project, Stylebook only supoorts [React](https
 - [Installation](#installation)
 - [Configuration](#configuration)
 - [Usage](#usage)
-- [Team](#team)
+- [Team](#contributors)
 - [License](#license)
 
 ## Installation
