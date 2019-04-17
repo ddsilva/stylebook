@@ -2,7 +2,7 @@
 ![Last commit](https://img.shields.io/github/last-commit/stylebooks/stylebook.svg?style=flat-square&color=blueviolet)
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg?style=flat-square&color=ff69b4)](http://commitizen.github.io/cz-cli)
 
-![Stylebook](./docs/static/readme-presentation.png)
+![Stylebook](./docs/static/readme-presentation-v01.png)
 
 ## Intro
 
