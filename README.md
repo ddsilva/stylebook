@@ -110,7 +110,7 @@ configure(loadStories, module)
 
 ## Contributors
 
-<table><tr><td align="center"><a href="#"><img src="https://avatars1.githubusercontent.com/u/4368481?s=460&v=4" width="100px;" alt="Alan Oliveira"/><br /><sub><b>Alan Oliveira</b></sub></a><br /><a href="https://github.com/React95/React95/commits?author=alan-oliv" title="Documentation">📖</a> <a href="https://github.com/React95/React95/commits?author=alan-oliv" title="Code">💻</a> <a href="#ideas-alan-oliv" title="Ideas, Planning, & Feedback">🤔</a> <a href="#review-alan-oliv" title="Reviewed Pull Requests">👀</a></td></tr></table>
+<table><tr><td align="center"><a href="#"><img src="https://avatars1.githubusercontent.com/u/4368481?s=460&v=4" width="100px;" alt="Alan Oliveira"/><br /><sub><b>Alan Oliveira</b></sub></a><br /><a href="https://github.com/stylebooks/stylebook/commits?author=alan-oliv" title="Documentation">📖</a> <a href="https://github.com/stylebooks/stylebook/commits?author=alan-oliv" title="Code">💻</a> <a href="#ideas-alan-oliv" title="Ideas, Planning, & Feedback">🤔</a> <a href="#review-alan-oliv" title="Reviewed Pull Requests">👀</a></td></tr></table>
 
 ---
 
