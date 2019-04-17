@@ -21,7 +21,7 @@ With that being said, Storybook doesn't have many options for customizing the Ma
 Stylebooks allows you using a [React component](https://reactjs.org/docs/react-component.html) as the manager app and customizing it as you wish.<br />
 Since this is a early-stage addon project, Stylebook only supoorts [React](https://reactjs.org/) for now, We hope to add support for other frameworks soon.
 
-## Table of Contents
+## Getting started
 
 - [Installation](#installation)
 - [Configuration](#configuration)
