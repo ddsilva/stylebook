@@ -6,6 +6,7 @@ import {
   ROOT_NODE_SELECTOR,
   CONTAINER_SELECTOR,
   MANAGER_SELECTOR,
+  PREVIEW_SELECTOR,
   NEW_MANAGER_ID
 } from '../constants'
 
@@ -18,7 +19,7 @@ class DOMController {
 
   public constructor() {
     this.root = document.querySelector(ROOT_NODE_SELECTOR) as Element
-    this.setObserver(this.root, () => this.setContainerVisible(false))
+    this.setObserver(this.root, () => this.setContainerProperties(false))
   }
 
   private setObserver = (
@@ -31,13 +32,32 @@ class DOMController {
     this.observer.observe(node, options)
   }
 
-  private setContainerVisible = (visibility: boolean) => {
-    const container = this.root && this.root.querySelector(CONTAINER_SELECTOR)
-    container &&
-      container.setAttribute(
-        'style',
-        `visibility: ${visibility ? 'visible' : 'hidden'};`
-      )
+  private setContainerProperties = (visibility: boolean) => {
+    if (visibility) {
+      this.containerPositioning()
+    } else {
+      const container =
+        this.root &&
+        (this.root.querySelector(CONTAINER_SELECTOR) as HTMLElement)
+
+      container && (container.style.visibility = 'hidden')
+    }
+  }
+
+  private containerPositioning = () => {
+    const manager = this.root && this.root.querySelector(MANAGER_SELECTOR)
+    manager && manager.setAttribute('style', 'position: relative; width: auto')
+
+    const preview = this.root && this.root.querySelector(PREVIEW_SELECTOR)
+    preview && preview.setAttribute('style', 'position: relative')
+
+    const container =
+      this.root && (this.root.querySelector(CONTAINER_SELECTOR) as HTMLElement)
+    if (container) {
+      container.style.transition = ''
+      container.style.display = 'flex'
+      container.style.visibility = 'visible'
+    }
   }
 
   public hydrate = (content: ManagerData, reRender: boolean = false) => {
@@ -67,7 +87,7 @@ class DOMController {
           )
           this.setObserver(container, () => this.hydrate(content, true))
         }
-        this.setContainerVisible(true)
+        this.setContainerProperties(true)
       }
     }
   }
