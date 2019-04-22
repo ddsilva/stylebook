@@ -6,8 +6,7 @@ import {
   ROOT_NODE_SELECTOR,
   CONTAINER_SELECTOR,
   MANAGER_SELECTOR,
-  PREVIEW_SELECTOR,
-  NEW_MANAGER_ID
+  PREVIEW_SELECTOR
 } from '../constants'
 
 class DOMController {
@@ -15,23 +14,15 @@ class DOMController {
 
   private root: Element
 
-  private stories: object[]
-
-  private isFullScreen: boolean = false
+  private fullscreen: boolean = false
 
   public constructor() {
     this.root = document.querySelector(ROOT_NODE_SELECTOR) as Element
     this.setObserver(this.root, () => this.setContainerProperties(false))
   }
 
-  private toggleFullscreenObserver = (content: ManagerData) => {
-    const toggleFs = document.querySelector(
-      'button[title="Go full screen"]'
-    ) as Element
-
-    toggleFs.addEventListener('click', () => {
-      this.isFullScreen = !this.isFullScreen
-    })
+  private toggleFullscreen = () => {
+    this.fullscreen = !this.fullscreen
   }
 
   private setObserver = (
@@ -48,9 +39,9 @@ class DOMController {
     if (visibility) {
       this.containerPositioning()
     } else {
-      const container =
-        this.root &&
-        (this.root.querySelector(CONTAINER_SELECTOR) as HTMLElement)
+      const container = this.root.querySelector(
+        CONTAINER_SELECTOR
+      ) as HTMLElement
 
       container && (container.style.visibility = 'hidden')
     }
@@ -62,8 +53,12 @@ class DOMController {
     const manager = this.root.querySelector(MANAGER_SELECTOR)
     const preview = this.root.querySelector(PREVIEW_SELECTOR)
     const container = this.root.querySelector(CONTAINER_SELECTOR) as HTMLElement
+    const toggleFs = document.querySelector(
+      'button[title="Go full screen"], button[title="Exit full screen"]'
+    ) as Element
 
     if (manager && preview && container) {
+      toggleFs.addEventListener('click', this.toggleFullscreen)
       manager.setAttribute('style', 'position: relative; width: auto')
       preview.setAttribute('style', 'position: relative')
       container.style.transition = ''
@@ -83,8 +78,10 @@ class DOMController {
       )
   }
 
-  public hydrate = (content: ManagerData, reRender: boolean = false) => {
-    if (!this.stories || reRender) {
+  public hydrate = (content: ManagerData) => {
+    if (!this.fullscreen) {
+      console.log('hydrate')
+
       const {
         stories,
         component
@@ -94,25 +91,30 @@ class DOMController {
         props: { children: newManager }
       } = component
 
-      this.stories = stories
-
       if (this.root) {
-        const defaultManager = this.root.querySelector(MANAGER_SELECTOR)
+        const defaultManager = this.root.querySelector(
+          MANAGER_SELECTOR
+        ) as Element
+
         const container = this.root.querySelector(CONTAINER_SELECTOR) as Element
+        let managerPlaceHolder = defaultManager.querySelector(
+          '#new-root'
+        ) as Element
 
-        if (defaultManager) {
-          defaultManager.innerHTML = ''
-          defaultManager.setAttribute('id', NEW_MANAGER_ID)
+        if (!managerPlaceHolder) {
+          defaultManager.innerHTML = '<div id="new-root"></div>'
 
+          managerPlaceHolder = defaultManager.querySelector(
+            '#new-root'
+          ) as Element
           ReactDOM.render(
             newManager(stories) as ReactElement,
-            document.getElementById(NEW_MANAGER_ID)
+            managerPlaceHolder
           )
         }
-        this.setContainerProperties(true)
-        this.setObserver(container, () => this.hydrate(content, true))
 
-        // if (!reRender) this.toggleFullscreenObserver(content)
+        this.setContainerProperties(true)
+        this.setObserver(container, () => this.hydrate(content))
       }
     }
   }
