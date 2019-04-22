@@ -13,13 +13,25 @@ import {
 class DOMController {
   private observer: MutationObserver
 
-  private root: Element | null
+  private root: Element
 
   private stories: object[]
+
+  private isFullScreen: boolean = false
 
   public constructor() {
     this.root = document.querySelector(ROOT_NODE_SELECTOR) as Element
     this.setObserver(this.root, () => this.setContainerProperties(false))
+  }
+
+  private toggleFullscreenObserver = (content: ManagerData) => {
+    const toggleFs = document.querySelector(
+      'button[title="Go full screen"]'
+    ) as Element
+
+    toggleFs.addEventListener('click', () => {
+      this.isFullScreen = !this.isFullScreen
+    })
   }
 
   private setObserver = (
@@ -45,19 +57,30 @@ class DOMController {
   }
 
   private containerPositioning = () => {
-    const manager = this.root && this.root.querySelector(MANAGER_SELECTOR)
-    manager && manager.setAttribute('style', 'position: relative; width: auto')
+    this.handleDraggables()
 
-    const preview = this.root && this.root.querySelector(PREVIEW_SELECTOR)
-    preview && preview.setAttribute('style', 'position: relative')
+    const manager = this.root.querySelector(MANAGER_SELECTOR)
+    const preview = this.root.querySelector(PREVIEW_SELECTOR)
+    const container = this.root.querySelector(CONTAINER_SELECTOR) as HTMLElement
 
-    const container =
-      this.root && (this.root.querySelector(CONTAINER_SELECTOR) as HTMLElement)
-    if (container) {
+    if (manager && preview && container) {
+      manager.setAttribute('style', 'position: relative; width: auto')
+      preview.setAttribute('style', 'position: relative')
       container.style.transition = ''
       container.style.display = 'flex'
       container.style.visibility = 'visible'
     }
+  }
+
+  private handleDraggables = () => {
+    const draggables = Array.from(
+      this.root.querySelectorAll('.react-draggable')
+    )
+
+    draggables &&
+      draggables.map((draggable: HTMLElement) =>
+        draggable.setAttribute('style', 'display: none')
+      )
   }
 
   public hydrate = (content: ManagerData, reRender: boolean = false) => {
@@ -78,16 +101,18 @@ class DOMController {
         const container = this.root.querySelector(CONTAINER_SELECTOR) as Element
 
         if (defaultManager) {
-          while (defaultManager.firstChild) defaultManager.firstChild.remove()
+          defaultManager.innerHTML = ''
           defaultManager.setAttribute('id', NEW_MANAGER_ID)
 
           ReactDOM.render(
             newManager(stories) as ReactElement,
             document.getElementById(NEW_MANAGER_ID)
           )
-          this.setObserver(container, () => this.hydrate(content, true))
         }
         this.setContainerProperties(true)
+        this.setObserver(container, () => this.hydrate(content, true))
+
+        // if (!reRender) this.toggleFullscreenObserver(content)
       }
     }
   }
