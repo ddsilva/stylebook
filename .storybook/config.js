@@ -3,20 +3,25 @@ import { configure, addDecorator } from "@storybook/react"
 import { linkTo } from "@storybook/addon-links"
 import { withManager } from "../src/decorators"
 import { StoriesProvider } from "../src/components"
+import styled from "styled-components"
 
 const req = require.context("../stories", true, /\.stories\.tsx$/)
 function loadStories() {
   req.keys().forEach(filename => req(filename))
 }
 
-const Test = (
+const Test = styled.ul`
+  background-color: red;
+`
+
+const Testano = (
   <StoriesProvider>
     {stories => (
-      <ul>
+      <Test>
         {stories.map(story => (
           <li key={story.kind}>
             <span>{story.kind}</span>
-            <ul>
+            <Test>
               {story.stories.map(substory => (
                 <li key={substory.name}>
                   <button onClick={linkTo(story.kind, substory.name)}>
@@ -24,16 +29,16 @@ const Test = (
                   </button>
                 </li>
               ))}
-            </ul>
+            </Test>
           </li>
         ))}
-      </ul>
+      </Test>
     )}
   </StoriesProvider>
 )
 
 const options = {
-  component: Test
+  component: Testano
 }
 
 configure(loadStories, module)

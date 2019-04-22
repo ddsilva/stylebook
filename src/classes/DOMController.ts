@@ -24,16 +24,6 @@ class DOMController {
     this.setObserver(this.root, () => this.setContainerProperties(false))
   }
 
-  private toggleFullscreenObserver = (content: ManagerData) => {
-    const toggleFs = document.querySelector(
-      'button[title="Go full screen"]'
-    ) as Element
-
-    toggleFs.addEventListener('click', () => {
-      this.isFullScreen = !this.isFullScreen
-    })
-  }
-
   private setObserver = (
     node: Element,
     callback: MutationCallback,
@@ -63,9 +53,17 @@ class DOMController {
     const preview = this.root.querySelector(PREVIEW_SELECTOR)
     const container = this.root.querySelector(CONTAINER_SELECTOR) as HTMLElement
 
+
     if (manager && preview && container) {
       manager.setAttribute('style', 'position: relative; width: auto')
       preview.setAttribute('style', 'position: relative')
+
+      const iframe = preview && preview.querySelector('#storybook-preview-iframe') as any
+      const iframeHead = iframe.contentWindow.document
+      const styledTag = iframeHead.querySelector('style[data-styled]')
+
+      document.head.appendChild(styledTag)
+
       container.style.transition = ''
       container.style.display = 'flex'
       container.style.visibility = 'visible'
@@ -112,7 +110,6 @@ class DOMController {
         this.setContainerProperties(true)
         this.setObserver(container, () => this.hydrate(content, true))
 
-        // if (!reRender) this.toggleFullscreenObserver(content)
       }
     }
   }
