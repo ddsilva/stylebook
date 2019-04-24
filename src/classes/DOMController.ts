@@ -1,18 +1,18 @@
 import ReactDOM from 'react-dom'
 import { ReactElement } from 'react'
-import { ManagerData } from '../interfaces'
+import { ManagerData, Overseer } from '../interfaces'
 import { ManagerComponent } from '../types'
+import StyleSheetController from './StyleSheetController'
 import {
   ROOT_NODE_SELECTOR,
   CONTAINER_SELECTOR,
   MANAGER_SELECTOR,
-  PREVIEW_SELECTOR
+  TOGGLE_FS_SELECTOR,
+  PREVIEW_SELECTOR,
+  CONTAINER_NORMALIZE,
+  MANAGER_NORMALIZE,
+  PREVIEW_NORMALIZE
 } from '../constants'
-
-interface Overseer {
-  name: string
-  observer: MutationObserver
-}
 
 class DOMController {
   private observers: Overseer[] = []
@@ -42,12 +42,15 @@ class DOMController {
     callback: MutationCallback,
     options: object = { childList: true }
   ): void => {
-    const MutationOverseer: Overseer = {
-      name,
-      observer: new MutationObserver(callback)
+    const exists = this.getObserver(name)
+    if (!exists) {
+      const MutationOverseer: Overseer = {
+        name,
+        observer: new MutationObserver(callback)
+      }
+      MutationOverseer.observer.observe(node, options)
+      this.observers.push(MutationOverseer)
     }
-    MutationOverseer.observer.observe(node, options)
-    this.observers.push(MutationOverseer)
   }
 
   private setContainerProperties = (visibility: boolean) => {
@@ -65,6 +68,10 @@ class DOMController {
   private containerPositioning = () => {
     this.hideDraggables()
 
+    const container: HTMLElement = this.root.querySelector(
+      CONTAINER_SELECTOR
+    ) as HTMLElement
+
     const manager: HTMLElement = this.root.querySelector(
       MANAGER_SELECTOR
     ) as HTMLElement
@@ -73,48 +80,38 @@ class DOMController {
       PREVIEW_SELECTOR
     ) as HTMLElement
 
-    const container: HTMLElement = this.root.querySelector(
-      CONTAINER_SELECTOR
-    ) as HTMLElement
+    const mainElements: HTMLElement[] = [preview, manager, container]
 
     const toggleFs: Element = document.querySelector(
-      'button[title="Go full screen"], button[title="Exit full screen"]'
+      TOGGLE_FS_SELECTOR
     ) as Element
 
     if (manager && preview && container) {
       toggleFs && toggleFs.addEventListener('click', this.toggleFullscreen)
 
-      // manager.setAttribute('style', 'position: relative; width: auto')
-      // preview.setAttribute('style', 'position: relative')
+      mainElements.forEach(element => {
+        element.removeAttribute('style')
 
-      const styles = Object.values(document.styleSheets)
-      const managerStyles: CSSStyleSheet = styles.find(
-        (stylesheet: CSSStyleSheet) => {
-          const rule: CSSStyleRule = stylesheet.rules[0] as CSSStyleRule
-          return rule.selectorText === '.css-1q7pov5'
-        }
-      ) as CSSStyleSheet
+        this.setObserver(
+          element.className,
+          element,
+          mutation =>
+            this.avoidMutation(mutation, 'attributes', () => {
+              element.removeAttribute('style')
+            }),
+          { childList: true, attributes: true }
+        )
+      })
 
-      managerStyles.insertRule('.css-1q7pov5 { background-color: #fff }', 1)
+      const stylesController = new StyleSheetController(document)
+      const managerClass = `.${manager.className}`
+      const previewClass = `.${preview.className}`
+      const containerClass = `.${container.className}`
 
-      // styles.map((stylesheet: CSSStyleSheet) => {
-      //   stylesheet.insertRule('header { background-color: red }', 1)
-      //   console.log(stylesheet)
-      // })
-
-      // this.setObserver(
-      //   'preview',
-      //   preview,
-      //   mutation =>
-      //     this.avoidMutation(mutation, 'attributes', () => {
-      //       // remove automatically injected attribute
-      //     }),
-      //   { childList: true, attributes: true }
-      // )
-
-      container.style.transition = ''
-      container.style.display = 'flex'
-      container.style.visibility = 'visible'
+      stylesController
+        .injectStyleAtSelector(containerClass, CONTAINER_NORMALIZE)
+        .injectStyleAtSelector(managerClass, MANAGER_NORMALIZE)
+        .injectStyleAtSelector(previewClass, PREVIEW_NORMALIZE)
     }
   }
 
@@ -142,7 +139,6 @@ class DOMController {
 
   public hydrate = (content: ManagerData) => {
     if (!this.fullscreen) {
-      console.log('hydrate')
       const {
         stories,
         component
