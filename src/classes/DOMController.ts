@@ -23,6 +23,7 @@ class DOMController {
 
   public constructor() {
     this.root = document.querySelector(ROOT_NODE_SELECTOR) as Element
+
     this.setObserver('root', this.root, () =>
       this.setContainerProperties(false)
     )
@@ -83,18 +84,33 @@ class DOMController {
     if (manager && preview && container) {
       toggleFs && toggleFs.addEventListener('click', this.toggleFullscreen)
 
-      manager.setAttribute('style', 'position: relative; width: auto')
-      preview.setAttribute('style', 'position: relative')
+      // manager.setAttribute('style', 'position: relative; width: auto')
+      // preview.setAttribute('style', 'position: relative')
 
-      this.setObserver(
-        'preview',
-        preview,
-        mutation =>
-          this.avoidMutation(mutation, 'attributes', () => {
-            // remove automatically injected attribute
-          }),
-        { childList: true, attributes: true }
-      )
+      const styles = Object.values(document.styleSheets)
+      const managerStyles: CSSStyleSheet = styles.find(
+        (stylesheet: CSSStyleSheet) => {
+          const rule: CSSStyleRule = stylesheet.rules[0] as CSSStyleRule
+          return rule.selectorText === '.css-1q7pov5'
+        }
+      ) as CSSStyleSheet
+
+      managerStyles.insertRule('.css-1q7pov5 { background-color: #fff }', 1)
+
+      // styles.map((stylesheet: CSSStyleSheet) => {
+      //   stylesheet.insertRule('header { background-color: red }', 1)
+      //   console.log(stylesheet)
+      // })
+
+      // this.setObserver(
+      //   'preview',
+      //   preview,
+      //   mutation =>
+      //     this.avoidMutation(mutation, 'attributes', () => {
+      //       // remove automatically injected attribute
+      //     }),
+      //   { childList: true, attributes: true }
+      // )
 
       container.style.transition = ''
       container.style.display = 'flex'
