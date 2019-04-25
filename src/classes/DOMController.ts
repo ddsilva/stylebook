@@ -80,6 +80,13 @@ class DOMController {
       PREVIEW_SELECTOR
     ) as HTMLElement
 
+    const previewFrame: HTMLIFrameElement = preview.querySelector(
+      '#storybook-preview-iframe'
+    ) as HTMLIFrameElement
+
+    const previewDocument: Document = (previewFrame.contentWindow &&
+      previewFrame.contentWindow.document) as Document
+
     const mainElements: HTMLElement[] = [preview, manager, container]
 
     const toggleFs: Element = document.querySelector(
@@ -109,6 +116,7 @@ class DOMController {
       const containerClass = `.${container.className}`
 
       stylesController
+        .stylesPortal(previewDocument, document)
         .injectStyleAtSelector(containerClass, CONTAINER_NORMALIZE)
         .injectStyleAtSelector(managerClass, MANAGER_NORMALIZE)
         .injectStyleAtSelector(previewClass, PREVIEW_NORMALIZE)

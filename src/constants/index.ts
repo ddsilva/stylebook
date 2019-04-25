@@ -13,6 +13,9 @@ const CONTAINER_NORMALIZE =
 const MANAGER_NORMALIZE = '{ position: relative; width: auto }'
 const PREVIEW_NORMALIZE = '{ position: relative }'
 
+const STYLE_TAGS_SELECTOR =
+  'style[data-styled], style[type="text/css"], style[data-emotion]'
+
 export {
   ADDON_NAME,
   ROOT_NODE_SELECTOR,
@@ -23,5 +26,6 @@ export {
   NEW_MANAGER_ID,
   CONTAINER_NORMALIZE,
   PREVIEW_NORMALIZE,
-  MANAGER_NORMALIZE
+  MANAGER_NORMALIZE,
+  STYLE_TAGS_SELECTOR
 }

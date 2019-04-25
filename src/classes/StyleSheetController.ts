@@ -1,3 +1,5 @@
+import { STYLE_TAGS_SELECTOR } from '../constants'
+
 class StyleSheetController {
   private document: Document
 
@@ -20,6 +22,16 @@ class StyleSheetController {
   ): StyleSheetController => {
     const styleToInject = this.getStyleSheetBySelector(selector)
     styleToInject.insertRule(`${selector} ${style}`, 1)
+    return this
+  }
+
+  public stylesPortal = (from: Document, to: Document) => {
+    const styledTag: Element = from.querySelector(
+      STYLE_TAGS_SELECTOR
+    ) as Element
+
+    styledTag && to.head.appendChild(styledTag)
+
     return this
   }
 }
