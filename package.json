@@ -18,7 +18,7 @@
     "run-storybook": "start-storybook -p 6006",
     "storybook": "concurrently \"yarn:run-*\"",
     "build-storybook": "build-storybook",
-    "lint": "eslint src/** --ext .ts,.tsx",
+    "lint": "eslint src/** .storybook/** --ext .ts,.tsx",
     "lint:fix": "yarn lint --fix"
   },
   "browserslist": [

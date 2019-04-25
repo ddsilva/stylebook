@@ -118,7 +118,7 @@ class DOMController {
   private avoidMutation = (
     mutations: MutationRecord[],
     type: string,
-    callback: any
+    callback: Function
   ) => {
     const attributeChanged = mutations.some(mutation => mutation.type === type)
 
