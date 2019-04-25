@@ -4,14 +4,15 @@ import { ManagerData, Overseer } from '../interfaces'
 import { ManagerComponent } from '../types'
 import StyleSheetController from './StyleSheetController'
 import {
-  ROOT_NODE_SELECTOR,
-  CONTAINER_SELECTOR,
-  MANAGER_SELECTOR,
-  TOGGLE_FS_SELECTOR,
-  PREVIEW_SELECTOR,
   CONTAINER_NORMALIZE,
+  CONTAINER_SELECTOR,
   MANAGER_NORMALIZE,
-  PREVIEW_NORMALIZE
+  MANAGER_SELECTOR,
+  PREVIEW_FRAME_SELECTOR,
+  PREVIEW_NORMALIZE,
+  PREVIEW_SELECTOR,
+  ROOT_NODE_SELECTOR,
+  TOGGLE_FS_SELECTOR
 } from '../constants'
 
 class DOMController {
@@ -81,7 +82,7 @@ class DOMController {
     ) as HTMLElement
 
     const previewFrame: HTMLIFrameElement = preview.querySelector(
-      '#storybook-preview-iframe'
+      PREVIEW_FRAME_SELECTOR
     ) as HTMLIFrameElement
 
     const previewDocument: Document = (previewFrame.contentWindow &&
