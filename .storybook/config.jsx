@@ -1,8 +1,9 @@
 import * as React from 'react'
 import { configure, addDecorator } from '@storybook/react'
 import { linkTo } from '@storybook/addon-links'
-import { withManager } from '../src/decorators'
-import { StoriesProvider } from '../src/components'
+
+import { withManager } from '../build/lib/decorators'
+import { StoriesProvider } from '../build/lib/components'
 
 const req = require.context('../stories', true, /\.stories\.tsx$/)
 function loadStories() {
